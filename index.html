@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Incentivos — Cultura, Saúde, Educação e Literatura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#101E34',
+                            teal: '#176B74',
+                            green: '#34A88A',
+                            gold: '#E6AD58',
+                            light: '#F5F7FA'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Manrope', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-light text-brand-dark font-sans antialiased">
+
+    <!-- Header / Navegação -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="mudarTela('home')">
+                <div class="bg-brand-teal text-white p-2.5 rounded-xl shadow-md">
+                    <i class="fa-solid fa-handshake-angle text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight font-heading text-brand-dark">Conecta<span class="text-brand-green">Incentivos</span></span>
+                    <p class="text-[11px] text-slate-500 font-medium">Redirecionamento Fiscal Estratégico</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+                <button onclick="mudarTela('home')" class="hover:text-brand-teal transition">Início</button>
+                <button onclick="mudarTela('catalogo')" class="hover:text-brand-teal transition">Explorar Projetos</button>
+                <button onclick="mudarTela('simulador')" class="hover:text-brand-teal transition">Simulador Fiscal</button>
+                <button onclick="mudarTela('proponente')" class="hover:text-brand-teal transition">Painel do Proponente</button>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <button onclick="mudarTela('proponente')" class="bg-brand-teal hover:bg-[#12555d] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-sm transition">
+                    <i class="fa-solid fa-plus mr-1.5"></i> Cadastrar Projeto
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- TELA 1: HOME -->
+    <div id="tela-home" class="space-y-16 pb-16">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-brand-dark via-[#142846] to-brand-teal text-white py-20 px-4 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+                <span class="bg-brand-gold/20 text-brand-gold text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-brand-gold/30">
+                    Lei Rouanet, Fundos e Incentivos Fiscais
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight font-heading leading-tight">
+                    Conectando projetos aprovados a empresas que transformam o Brasil.
+                </h1>
+                <p class="text-lg text-slate-200 max-w-2xl mx-auto font-light leading-relaxed">
+                    Redirecione parte do Imposto de Renda para iniciativas de cultura, literatura, saúde e educação com total segurança jurídica, transparência e proteção de dados.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="mudarTela('catalogo')" class="bg-brand-green hover:bg-[#2c9177] text-white font-bold px-8 py-4 rounded-xl shadow-lg transition text-base">
+                        Explorar Vitrine de Projetos
+                    </button>
+                    <button onclick="mudarTela('simulador')" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-8 py-4 rounded-xl transition text-base backdrop-blur-sm">
+                        Simulador de Incentivo Fiscal
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center space-y-1">
+                    <div class="text-3xl font-extrabold font-heading text-brand-teal">R$ 1.8M+</div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wide font-semibold">Captação em Vitrine</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center space-y-1">
+                    <div class="text-3xl font-extrabold font-heading text-brand-green" id="contador-projetos">3+ Projetos</div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wide font-semibold">Aprovados e Verificados</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center space-y-1">
+                    <div class="text-3xl font-extrabold font-heading text-brand-gold">Lucro Real</div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wide font-semibold">Foco em Pessoas Jurídicas</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center space-y-1">
+                    <div class="text-3xl font-extrabold font-heading text-brand-dark">100% Seguro</div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wide font-semibold">Criptografia & LGPD</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vitrine Dinâmica na Home -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <span class="text-brand-teal text-xs font-bold uppercase tracking-wider">Destaques da Semana</span>
+                    <h2 class="text-3xl font-extrabold font-heading text-brand-dark mt-1">Projetos com Captação Aberta</h2>
+                </div>
+                <button onclick="mudarTela('catalogo')" class="text-brand-teal hover:text-brand-dark font-semibold text-sm flex items-center gap-1">
+                    Ver todos os projetos <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div id="grid-home-projetos" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Os cards serão injetados via JavaScript para refletir também novos cadastros -->
+            </div>
+        </section>
+    </div>
+
+    <!-- TELA 2: CATÁLOGO DE PROJETOS -->
+    <div id="tela-catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+            <div>
+                <h1 class="text-3xl font-extrabold font-heading text-brand-dark">Catálogo de Projetos Aprovados</h1>
+                <p class="text-sm text-slate-600 mt-1">Filtre por categoria, mecanismo de incentivo ou pesquise pelo PRONAC para apoiar iniciativas verificadas.</p>
+            </div>
+            <button onclick="mudarTela('home')" class="text-sm font-semibold text-brand-teal hover:underline flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+            </button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Categoria</label>
+                <select id="filtro-cat" onchange="renderizarCatalogo()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-teal">
+                    <option value="todos">Todas as Categorias</option>
+                    <option value="Literatura">Literatura</option>
+                    <option value="Cultura">Cultura</option>
+                    <option value="Saúde & Educação">Saúde & Educação</option>
+                    <option value="Educação">Educação</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Mecanismo de Incentivo</label>
+                <select id="filtro-mecanismo" onchange="renderizarCatalogo()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-teal">
+                    <option value="todos">Todos os Mecanismos</option>
+                    <option value="Lei Rouanet / SALIC">Lei Rouanet / SALIC</option>
+                    <option value="Fundo Municipal / Estadual">Fundo Municipal / Estadual</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Busca por Nome ou PRONAC</label>
+                <input type="text" id="busca-texto" oninput="renderizarCatalogo()" placeholder="Ex: Biblioteca ou 233491" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-teal">
+            </div>
+        </div>
+
+        <!-- Grid de Projetos do Catálogo -->
+        <div id="grid-catalogo-projetos" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Dinâmico -->
+        </div>
+    </div>
+
+    <!-- TELA 3: PÁGINA INDIVIDUAL DO PROJETO -->
+    <div id="tela-detalhe" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 hidden">
+        <button onclick="mudarTela('catalogo')" class="text-sm font-semibold text-brand-teal hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao catálogo
+        </button>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                <div>
+                    <span id="detalhe-badge" class="bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">Literatura / Lei Rouanet</span>
+                    <h1 id="detalhe-titulo" class="text-3xl font-extrabold font-heading text-brand-dark mt-3">Nome do Projeto</h1>
+                    <p id="detalhe-pronac" class="text-sm font-mono text-slate-500 mt-1">PRONAC: 233491 — Ministério da Cultura</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-right">
+                    <div class="text-xs text-slate-500 font-semibold uppercase">Valor Autorizado</div>
+                    <div id="detalhe-total" class="text-2xl font-extrabold font-heading text-brand-dark">R$ 0,00</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-6 text-slate-700 text-sm leading-relaxed">
+                    <div>
+                        <h3 class="text-lg font-bold font-heading text-brand-dark mb-2">Resumo Executivo</h3>
+                        <p id="detalhe-desc">Descrição completa do projeto...</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold font-heading text-brand-dark mb-2">Público-Alvo e Abrangência</h3>
+                        <p id="detalhe-publico" class="text-slate-600">Comunidade geral e escolas públicas.</p>
+                    </div>
+
+                    <div class="bg-brand-light p-6 rounded-2xl border border-slate-200 space-y-3">
+                        <h4 class="font-bold font-heading text-brand-dark">Contrapartidas e Responsabilidade Social</h4>
+                        <p id="detalhe-contrapartida" class="text-slate-600 text-xs">Inserção de logomarca e doação de cotas de produtos culturais para redes públicas.</p>
+                    </div>
+                </div>
+
+                <!-- Painel de Intenção de Patrocínio -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4 h-fit">
+                    <h3 class="font-bold font-heading text-brand-dark text-base">Demonstrar Interesse</h3>
+                    <p class="text-xs text-slate-500">Selecione o valor do aporte (integral ou parcial). Esta ação registra uma intenção de apoio e abre canal de negociação com o proponente.</p>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Valor do Aporte (R$)</label>
+                            <input type="text" id="valor-aporte" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal bg-white" placeholder="Ex: 25.000,00">
+                        </div>
+                        <button onclick="registrarIntencao()" class="w-full bg-brand-teal hover:bg-[#12555d] text-white font-bold py-3 rounded-xl transition shadow-sm text-sm">
+                            Enviar Intenção de Patrocínio
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-slate-400 text-center"><i class="fa-solid fa-lock mr-1"></i> Dados protegidos e criptografados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA 4: PAINEL DO PROPONENTE (CADASTRO DE PROJETOS) -->
+    <div id="tela-proponente" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 hidden">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-6">
+            <div>
+                <span class="text-brand-teal text-xs font-bold uppercase tracking-wider bg-brand-teal/10 px-3 py-1 rounded-full">Área do Proponente (PF / PJ)</span>
+                <h1 class="text-3xl font-extrabold font-heading text-brand-dark mt-2">Cadastrar Novo Projeto Aprovado</h1>
+                <p class="text-sm text-slate-600 mt-1">Insira os dados oficiais do seu projeto para exibi-lo na vitrine de captação após a moderação.</p>
+            </div>
+            <button onclick="mudarTela('home')" class="text-sm font-semibold text-brand-teal hover:underline">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-6">
+            <form onsubmit="cadastrarNovoProjeto(event)" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nome do Projeto *</label>
+                        <input type="text" id="cad-titulo" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Ex: Orquestra Jovem Comunitária">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Número PRONAC ou Identificador Oficial *</label>
+                        <input type="text" id="cad-pronac" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Ex: 245100">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Área / Categoria *</label>
+                        <select id="cad-cat" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal bg-white">
+                            <option value="Literatura">Literatura</option>
+                            <option value="Cultura">Cultura</option>
+                            <option value="Saúde & Educação">Saúde & Educação</option>
+                            <option value="Educação">Educação</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Mecanismo de Incentivo *</label>
+                        <select id="cad-mecanismo" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal bg-white">
+                            <option value="Lei Rouanet / SALIC">Lei Rouanet / SALIC</option>
+                            <option value="Fundo Municipal / Estadual">Fundo Municipal / Estadual</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Valor Autorizado (R$) *</label>
+                        <input type="text" id="cad-valor" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Ex: 200.000,00">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Resumo Executivo / Portfólio *</label>
+                    <textarea id="cad-desc" rows="3" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Descreva os objetivos, alcance e importância do projeto..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Público-Alvo</label>
+                        <input type="text" id="cad-publico" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Ex: Estudantes da rede pública">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Contrapartidas Sociais</label>
+                        <input type="text" id="cad-contrapartida" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-teal" placeholder="Ex: Oficinas gratuitas e inserção de marca">
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-brand-teal hover:bg-[#12555d] text-white font-bold py-3.5 rounded-xl transition shadow-sm text-sm">
+                        Cadastrar Projeto com Segurança Criptografada
+                    </button>
+                    <p class="text-center text-xs text-slate-400 mt-2"><i class="fa-solid fa-lock mr-1"></i> Protegido em conformidade com a LGPD e verificação de titularidade.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TELA 5: SIMULADOR FISCAL PARA EMPRESAS -->
+    <div id="tela-simulador" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 hidden">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-6">
+            <div>
+                <span class="text-brand-gold text-xs font-bold uppercase tracking-wider bg-brand-gold/10 px-3 py-1 rounded-full">Ferramenta para Empresas</span>
+                <h1 class="text-3xl font-extrabold font-heading text-brand-dark mt-2">Simulador de Incentivo Fiscal</h1>
+                <p class="text-sm text-slate-600 mt-1">Estime orientativamente a dedução fiscal para apoiar projetos via Lei Rouanet e monte sua cesta de patrocínios.</p>
+            </div>
+            <button onclick="mudarTela('home')" class="text-sm font-semibold text-brand-teal hover:underline">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Regime Tributário da Empresa</label>
+                    <select id="sim-regime" onchange="calcularSimulacao()" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white font-medium">
+                        <option value="lucro_real">Lucro Real (Elegível para deduções federais)</option>
+                        <option value="lucro_presumido">Lucro Presumido / Outros</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Imposto de Renda Devido Estimado (IRPJ Anual)</label>
+                    <input type="text" id="sim-irpj" value="500.000,00" oninput="calcularSimulacao()" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-white font-medium" placeholder="Ex: 500.000,00">
+                </div>
+            </div>
+
+            <!-- Resultados do Simulador -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-brand-light p-6 rounded-2xl border border-slate-200 space-y-1">
+                    <div class="text-xs text-slate-500 font-semibold uppercase">Limite Teórico Lei Rouanet (4%)</div>
+                    <div id="res-limite-rouanet" class="text-2xl font-extrabold font-heading text-brand-teal">R$ 20.000,00</div>
+                    <p class="text-[11px] text-slate-400">Conforme legislação aplicável ao Lucro Real</p>
+                </div>
+                <div class="bg-brand-light p-6 rounded-2xl border border-slate-200 space-y-1">
+                    <div class="text-xs text-slate-500 font-semibold uppercase">Orçamento Simulado de Aporte</div>
+                    <div id="res-orcamento" class="text-2xl font-extrabold font-heading text-brand-dark">R$ 15.000,00</div>
+                    <p class="text-[11px] text-slate-400">Total alocado nos projetos selecionados</p>
+                </div>
+                <div class="bg-brand-light p-6 rounded-2xl border border-slate-200 space-y-1">
+                    <div class="text-xs text-slate-500 font-semibold uppercase">Status de Elegibilidade</div>
+                    <div id="res-status" class="text-xl font-extrabold font-heading text-brand-green">Dentro do Limite</div>
+                    <p class="text-[11px] text-slate-400">Aporte totalmente enquadrável</p>
+                </div>
+            </div>
+
+            <!-- Seleção Rápida de Projetos para Simulação -->
+            <div class="space-y-4 pt-4 border-t border-slate-100">
+                <h3 class="font-bold font-heading text-brand-dark text-base">Monte sua Cesta de Patrocínio Simulada</h3>
+                <p class="text-xs text-slate-500">Selecione o valor que deseja direcionar para cada iniciativa cadastrada:</p>
+                
+                <div id="simulador-lista-projetos" class="space-y-3">
+                    <!-- Gerado dinamicamente -->
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-xs text-amber-800 space-y-1">
+                <p class="font-bold"><i class="fa-solid fa-circle-exclamation mr-1"></i> Aviso Legal Importante:</p>
+                <p>Este simulador é puramente informativo e orientativo. A dedução fiscal real depende da apuração contábil oficial da empresa, prazos de captação vigentes e validação junto à contabilidade corporativa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-white border-t border-slate-200 py-10 px-4 text-center text-xs text-slate-500 mt-20">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <p class="font-medium text-brand-dark">Conecta Incentivos — Iniciativa Independente de Estímulo Fiscal</p>
+            <p>O portal atua como ferramenta de conexão e transparência. Os aportes oficiais seguem estritamente os canais e contas vinculadas autorizadas.</p>
+            <p class="text-slate-400">&copy; 2026 Conecta Incentivos. Todos os direitos reservados. Em conformidade com a LGPD.</p>
+        </div>
+    </footer>
+
+    <!-- Lógica JavaScript Dinâmica -->
+    <script>
+        // Banco de dados em memória expansível
+        let projetosDB = [
+            {
+                id: '1',
+                titulo: "Biblioteca Viva nas Escolas Públicas",
+                pronac: "233491",
+                categoria: "Literatura",
+                mecanismo: "Lei Rouanet / SALIC",
+                valorTotal: "R$ 250.000,00",
+                valorNum: 250000,
+                disponivel: "R$ 180.000,00",
+                desc: "Distribuição de kits de livros acessíveis, com formatos inclusivos (audiobook, Braille e Libras) e oficinas de leitura ativa em escolas públicas.",
+                publico: "Crianças e jovens da rede pública municipal",
+                contrapartida: "Inserção de logo e doação de 300 kits de livros."
+            },
+            {
+                id: '2',
+                titulo: "Festival One Health & Clima",
+                pronac: "241029",
+                categoria: "Cultura",
+                mecanismo: "Lei Rouanet / SALIC",
+                valorTotal: "R$ 420.000,00",
+                valorNum: 420000,
+                disponivel: "R$ 250.000,00",
+                desc: "Mostra cultural integrando exposições artísticas, debates públicos e educação ambiental sobre saúde planetária e mudanças climáticas.",
+                publico: "Comunidade geral e estudantes universitários",
+                contrapartida: "Cotas de ingressos e visibilidade em praças públicas."
+            },
+            {
+                id: '3',
+                titulo: "Metodologias Ativas na Saúde Coletiva",
+                pronac: "238910",
+                categoria: "Saúde & Educação",
+                mecanismo: "Fundo Municipal / Estadual",
+                valorTotal: "R$ 150.000,00",
+                valorNum: 150000,
+                disponivel: "R$ 90.000,00",
+                desc: "Capacitação inovadora de profissionais e estudantes da rede pública de saúde utilizando metodologias ativas e simulação comunitária.",
+                publico: "Profissionais de saúde e educadores",
+                contrapartida: "Relatório de impacto e certificados de participação."
+            }
+        ];
+
+        let simuladorAportes = { '1': 10000, '2': 15000, '3': 5000 };
+
+        function mudarTela(tela) {
+            document.getElementById('tela-home').classList.add('hidden');
+            document.getElementById('tela-catalogo').classList.add('hidden');
+            document.getElementById('tela-detalhe').classList.add('hidden');
+            document.getElementById('tela-proponente').classList.add('hidden');
+            document.getElementById('tela-simulador').classList.add('hidden');
+
+            if (tela === 'home') {
+                document.getElementById('tela-home').classList.remove('hidden');
+                renderizarHome();
+            }
+            if (tela === 'catalogo') {
+                document.getElementById('tela-catalogo').classList.remove('hidden');
+                renderizarCatalogo();
+            }
+            if (tela === 'detalhe') document.getElementById('tela-detalhe').classList.remove('hidden');
+            if (tela === 'proponente') document.getElementById('tela-proponente').classList.remove('hidden');
+            if (tela === 'simulador') {
+                document.getElementById('tela-simulador').classList.remove('hidden');
+                renderizarSimulador();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderizarHome() {
+            const grid = document.getElementById('grid-home-projetos');
+            document.getElementById('contador-projetos').innerText = projetosDB.length + '+ Projetos';
+            grid.innerHTML = projetosDB.slice(0, 3).map(p => `
+                <div onclick="abrirDetalhes('${p.id}')" class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer overflow-hidden flex flex-col group">
+                    <div class="bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-4 py-2.5 flex justify-between items-center border-b border-amber-200/50">
+                        <span>${p.categoria} / ${p.mecanismo.split('/')[0]}</span>
+                        <span class="font-mono">PRONAC: ${p.pronac}</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold font-heading text-brand-dark group-hover:text-brand-teal transition mb-2">${p.titulo}</h3>
+                            <p class="text-sm text-slate-600 line-clamp-3">${p.desc}</p>
+                        </div>
+                        <div class="space-y-3 pt-4 border-t border-slate-100 text-xs">
+                            <div class="flex justify-between text-slate-600"><span>Valor Autorizado:</span> <span class="font-semibold text-slate-900">${p.valorTotal}</span></div>
+                            <div class="flex justify-between text-slate-600"><span>Disponível Captação:</span> <span class="font-semibold text-brand-green">${p.disponivel}</span></div>
+                        </div>
+                        <span class="w-full inline-block text-center bg-slate-900 group-hover:bg-brand-teal text-white text-sm font-semibold py-2.5 rounded-xl transition shadow-sm">
+                            Conhecer Projeto e Contrapartidas
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderizarCatalogo() {
+            const cat = document.getElementById('filtro-cat').value;
+            const mec = document.getElementById('filtro-mecanismo').value;
+            const texto = document.getElementById('busca-texto').value.toLowerCase();
+            const grid = document.getElementById('grid-catalogo-projetos');
+
+            const filtrados = projetosDB.filter(p => {
+                const matchCat = (cat === 'todos' || p.categoria === cat);
+                const matchMec = (mec === 'todos' || p.mecanismo === mec);
+                const matchTexto = (p.titulo.toLowerCase().includes(texto) || p.pronac.includes(texto));
+                return matchCat && matchMec && matchTexto;
+            });
+
+            if (filtrados.length === 0) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-12 text-slate-500">Nenhum projeto encontrado com os filtros selecionados.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtrados.map(p => `
+                <div onclick="abrirDetalhes('${p.id}')" class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer overflow-hidden flex flex-col group">
+                    <div class="bg-teal-100 text-teal-900 text-xs font-bold uppercase tracking-wider px-4 py-2.5 flex justify-between items-center border-b border-teal-200/50">
+                        <span>${p.categoria}</span>
+                        <span class="font-mono">PRONAC: ${p.pronac}</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold font-heading text-brand-dark group-hover:text-brand-teal transition mb-2">${p.titulo}</h3>
+                            <p class="text-sm text-slate-600 line-clamp-3">${p.desc}</p>
+                        </div>
+                        <div class="space-y-3 pt-4 border-t border-slate-100 text-xs">
+                            <div class="flex justify-between text-slate-600"><span>Valor Autorizado:</span> <span class="font-semibold text-slate-900">${p.valorTotal}</span></div>
+                            <div class="flex justify-between text-slate-600"><span>Disponível Captação:</span> <span class="font-semibold text-brand-green">${p.disponivel}</span></div>
+                        </div>
+                        <span class="w-full inline-block text-center bg-slate-900 group-hover:bg-brand-teal text-white text-sm font-semibold py-2.5 rounded-xl transition shadow-sm">Ver Detalhes</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function abrirDetalhes(id) {
+            const p = projetosDB.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('detalhe-titulo').innerText = p.titulo;
+            document.getElementById('detalhe-pronac').innerText = `PRONAC: ${p.pronac} — ${p.mecanismo}`;
+            document.getElementById('detalhe-badge').innerText = `${p.categoria} / ${p.mecanismo}`;
+            document.getElementById('detalhe-total').innerText = p.valorTotal;
+            document.getElementById('detalhe-desc').innerText = p.desc;
+            document.getElementById('detalhe-publico').innerText = p.publico;
+            document.getElementById('detalhe-contrapartida').innerText = p.contrapartida;
+            mudarTela('detalhe');
+        }
+
+        function cadastrarNovoProjeto(event) {
+            event.preventDefault();
+            const novo = {
+                id: String(projetosDB.length + 1),
+                titulo: document.getElementById('cad-titulo').value,
+                pronac: document.getElementById('cad-pronac').value,
+                categoria: document.getElementById('cad-cat').value,
+                mecanismo: document.getElementById('cad-mecanismo').value,
+                valorTotal: 'R$ ' + document.getElementById('cad-valor').value,
+                valorNum: parseFloat(document.getElementById('cad-valor').value.replace(/\./g,'').replace(',','.')) || 100000,
+                disponivel: 'R$ ' + document.getElementById('cad-valor').value,
+                desc: document.getElementById('cad-desc').value,
+                publico: document.getElementById('cad-publico').value || 'Público geral',
+                contrapartida: document.getElementById('cad-contrapartida').value || 'Contrapartida padrão social'
+            };
+
+            projetosDB.unshift(novo);
+            alert('Projeto cadastrado com sucesso! Seus dados foram criptografados e o projeto entrou em fila de verificação oficial.');
+            event.target.reset();
+            mudarTela('catalogo');
+        }
+
+        function renderizarSimulador() {
+            const lista = document.getElementById('simulador-lista-projetos');
+            lista.innerHTML = projetosDB.map(p => {
+                const val = simuladorAportes[p.id] || 0;
+                return `
+                    <div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 rounded-xl border border-slate-200 gap-3">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm text-brand-dark">${p.titulo}</h4>
+                            <p class="text-xs text-slate-500">PRONAC: ${p.pronac} | ${p.categoria}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-semibold text-slate-600">Aporte (R$):</span>
+                            <input type="number" value="${val}" onchange="atualizarAporteSimulador('${p.id}', this.value)" class="w-32 px-3 py-1.5 border border-slate-200 rounded-lg text-sm text-right focus:outline-none focus:border-brand-teal">
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            calcularSimulacao();
+        }
+
+        function atualizarAporteSimulador(id, val) {
+            simuladorAportes[id] = parseFloat(val) || 0;
+            calcularSimulacao();
+        }
+
+        function calcularSimulacao() {
+            const irpjStr = document.getElementById('sim-irpj').value.replace(/\./g,'').replace(',','.');
+            const irpj = parseFloat(irpjStr) || 0;
+            const regime = document.getElementById('sim-regime').value;
+
+            // Limite teórico Lei Rouanet para Lucro Real é 4% do IRPJ devido
+            const limiteRouanet = (regime === 'lucro_real') ? (irpj * 0.04) : 0;
+            
+            let totalOrcamento = 0;
+            for (let id in simuladorAportes) {
+                totalOrcamento += simuladorAportes[id];
+            }
+
+            document.getElementById('res-limite-rouanet').innerText = 'R$ ' + limiteRouanet.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('res-orcamento').innerText = 'R$ ' + totalOrcamento.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+
+            const statusEl = document.getElementById('res-status');
+            if (regime !== 'lucro_real') {
+                statusEl.innerText = 'Não Aplicável';
+                statusEl.className = 'text-xl font-extrabold font-heading text-amber-600';
+            } else if (totalOrcamento <= limiteRouanet) {
+                statusEl.innerText = 'Dentro do Limite (4%)';
+                statusEl.className = 'text-xl font-extrabold font-heading text-brand-green';
+            } else {
+                statusEl.innerText = 'Acima do Limite Legal';
+                statusEl.className = 'text-xl font-extrabold font-heading text-rose-600';
+            }
+        }
+
+        function registrarIntencao() {
+            const valor = document.getElementById('valor-aporte').value;
+            if(!valor) {
+                alert('Por favor, informe o valor desejado para o aporte.');
+                return;
+            }
+            alert('Intenção de patrocínio registrada com segurança! O proponente será notificado para os trâmites oficiais.');
+            document.getElementById('valor-aporte').value = '';
+        }
+
+        // Inicializar home ao carregar
+        renderizarHome();
+    </script>
+</body>
+</html>
