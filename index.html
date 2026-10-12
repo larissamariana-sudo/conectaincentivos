@@ -375,50 +375,9 @@
 
     <!-- Lógica JavaScript Dinâmica -->
     <script>
-        // Banco de dados em memória expansível
-        let projetosDB = [
-            {
-                id: '1',
-                titulo: "Biblioteca Viva nas Escolas Públicas",
-                pronac: "233491",
-                categoria: "Literatura",
-                mecanismo: "Lei Rouanet / SALIC",
-                valorTotal: "R$ 250.000,00",
-                valorNum: 250000,
-                disponivel: "R$ 180.000,00",
-                desc: "Distribuição de kits de livros acessíveis, com formatos inclusivos (audiobook, Braille e Libras) e oficinas de leitura ativa em escolas públicas.",
-                publico: "Crianças e jovens da rede pública municipal",
-                contrapartida: "Inserção de logo e doação de 300 kits de livros."
-            },
-            {
-                id: '2',
-                titulo: "Festival One Health & Clima",
-                pronac: "241029",
-                categoria: "Cultura",
-                mecanismo: "Lei Rouanet / SALIC",
-                valorTotal: "R$ 420.000,00",
-                valorNum: 420000,
-                disponivel: "R$ 250.000,00",
-                desc: "Mostra cultural integrando exposições artísticas, debates públicos e educação ambiental sobre saúde planetária e mudanças climáticas.",
-                publico: "Comunidade geral e estudantes universitários",
-                contrapartida: "Cotas de ingressos e visibilidade em praças públicas."
-            },
-            {
-                id: '3',
-                titulo: "Metodologias Ativas na Saúde Coletiva",
-                pronac: "238910",
-                categoria: "Saúde & Educação",
-                mecanismo: "Fundo Municipal / Estadual",
-                valorTotal: "R$ 150.000,00",
-                valorNum: 150000,
-                disponivel: "R$ 90.000,00",
-                desc: "Capacitação inovadora de profissionais e estudantes da rede pública de saúde utilizando metodologias ativas e simulação comunitária.",
-                publico: "Profissionais de saúde e educadores",
-                contrapartida: "Relatório de impacto e certificados de participação."
-            }
-        ];
-
-        let simuladorAportes = { '1': 10000, '2': 15000, '3': 5000 };
+        // Dados reais carregados de Supabase por app-supabase.js.
+        let projetosDB = [];
+        let simuladorAportes = {};
 
         function mudarTela(tela) {
             document.getElementById('tela-home').classList.add('hidden');
@@ -446,8 +405,8 @@
 
         function renderizarHome() {
             const grid = document.getElementById('grid-home-projetos');
-            document.getElementById('contador-projetos').innerText = projetosDB.length + '+ Projetos';
-            grid.innerHTML = projetosDB.slice(0, 3).map(p => `
+            document.getElementById('contador-projetos').innerText = projetosDB.length + ' Projetos verificados';
+            grid.innerHTML = projetosDB.length ? projetosDB.slice(0, 3).map(p => `
                 <div onclick="abrirDetalhes('${p.id}')" class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer overflow-hidden flex flex-col group">
                     <div class="bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-4 py-2.5 flex justify-between items-center border-b border-amber-200/50">
                         <span>${p.categoria} / ${p.mecanismo.split('/')[0]}</span>
@@ -467,7 +426,7 @@
                         </span>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<p class="text-slate-500 col-span-3">Nenhum projeto verificado e publicado disponível.</p>';
         }
 
         function renderizarCatalogo() {
@@ -522,27 +481,7 @@
             mudarTela('detalhe');
         }
 
-        function cadastrarNovoProjeto(event) {
-            event.preventDefault();
-            const novo = {
-                id: String(projetosDB.length + 1),
-                titulo: document.getElementById('cad-titulo').value,
-                pronac: document.getElementById('cad-pronac').value,
-                categoria: document.getElementById('cad-cat').value,
-                mecanismo: document.getElementById('cad-mecanismo').value,
-                valorTotal: 'R$ ' + document.getElementById('cad-valor').value,
-                valorNum: parseFloat(document.getElementById('cad-valor').value.replace(/\./g,'').replace(',','.')) || 100000,
-                disponivel: 'R$ ' + document.getElementById('cad-valor').value,
-                desc: document.getElementById('cad-desc').value,
-                publico: document.getElementById('cad-publico').value || 'Público geral',
-                contrapartida: document.getElementById('cad-contrapartida').value || 'Contrapartida padrão social'
-            };
-
-            projetosDB.unshift(novo);
-            alert('Projeto cadastrado com sucesso! Seus dados foram criptografados e o projeto entrou em fila de verificação oficial.');
-            event.target.reset();
-            mudarTela('catalogo');
-        }
+        function cadastrarNovoProjeto(event) { event.preventDefault(); alert('A integração de cadastro está indisponível.'); }
 
         function renderizarSimulador() {
             const lista = document.getElementById('simulador-lista-projetos');
@@ -598,18 +537,13 @@
             }
         }
 
-        function registrarIntencao() {
-            const valor = document.getElementById('valor-aporte').value;
-            if(!valor) {
-                alert('Por favor, informe o valor desejado para o aporte.');
-                return;
-            }
-            alert('Intenção de patrocínio registrada com segurança! O proponente será notificado para os trâmites oficiais.');
-            document.getElementById('valor-aporte').value = '';
-        }
+        function registrarIntencao() { alert('A integração de patrocínio está indisponível.'); }
 
         // Inicializar home ao carregar
         renderizarHome();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="config.js"></script>
+    <script src="app-supabase.js"></script>
 </body>
 </html>
